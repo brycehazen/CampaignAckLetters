@@ -1,6 +1,6 @@
 # CSV Processing and Merging Script
 
-This script processes and merges specific CSV files within a directory. It's designed to identify a file with "Export" in its name, perform cleaning operations on it, and then merge it with another CSV file based on specific columns.
+This script processes and merges specific CSV files within a directory. It's designed to identify a file with "Export" in its  name, perform cleaning operations on it, and then merge it with another CSV file based on specific columns. One file comes from the Mail Module while the file with 'Export' in its name will come from the query created by the Mail module, which you the export from the Export module. 
 
 ## Table of Contents
 - [Requirements](#requirements)
