@@ -23,9 +23,9 @@ This script processes and merges specific CSV files within a directory. It's des
 3. Another file in the directory should have the column "Constituent ID".
 4. Run the script using the command:
     ```bash
-    python script_name.py
+    python CampaignAckLetter.py
     ```
-    Replace `script_name.py` with the name you've saved the script as.
+    Replace `CampaignAckLetter.py` with the name you've saved the script as.
 
 ## File Descriptions
 
