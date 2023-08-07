@@ -1,31 +1,42 @@
-Purpose
-The purpose of this script is to process and merge specific CSV files in a directory. The script identifies a file with "Export" in its name, cleans it, and then merges it with another CSV file based on specific columns.
+# CSV Processing and Merging Script
 
-Requirements
-Python 3.x
-pandas library (can be installed via pip install pandas)
-How to run
-Place the script in a directory containing the CSV files you want to process. Ensure one file has "Export" in its name and the other contains the column "Constituent ID". Then, execute the script:
+This script processes and merges specific CSV files within a directory. It's designed to identify a file with "Export" in its name, perform cleaning operations on it, and then merge it with another CSV file based on specific columns.
 
-Copy code
-python script_name.py
-Replace script_name.py with the name you've saved the script as.
+## Table of Contents
+- [Requirements](#requirements)
+- [Usage](#usage)
+- [File Descriptions](#file-descriptions)
+- [Detailed Steps](#detailed-steps)
 
-Input and Output
-Input:
+## Requirements
+- **Python**: Version 3.x
+- **Libraries**: pandas (Install via `pip install pandas`)
 
-A CSV file with "Export" in its name which will undergo cleaning.
-Another CSV file containing a column "Constituent ID" for merging.
-Output:
+## Usage
 
-A cleaned version of the "Export" file with "_clean" appended to its name.
-A merged file of the cleaned "Export" file and the other CSV, saved with "_merged" appended to the original "Export" file's name.
-Description
-The script performs the following steps:
+1. Ensure your working directory contains the CSV files for processing.
+2. One of the files should contain "Export" in its name.
+3. Another file in the directory should have the column "Constituent ID".
+4. Run the script using the command:
+    ```bash
+    python script_name.py
+    ```
+    Replace `script_name.py` with the name you've saved the script as.
 
-Identifies and reads the CSV file with "Export" in its name.
-Cleans the "Export" file. (Note: Ensure you integrate the relevant cleaning steps where indicated in the script.)
-Identifies another CSV file in the directory which contains the column "Constituent ID".
-Merges the cleaned "Export" file with this second file.
-Renames columns to more user-friendly names.
-Saves the merged data with "_merged" appended to the original "Export" file's name.
+## File Descriptions
+
+**Input**:
+- `*_Export*.csv`: A CSV file with "Export" in its name which undergoes cleaning.
+- `*.csv`: Another CSV file containing the column "Constituent ID" used for merging.
+
+**Output**:
+- `*_Export*_clean.csv`: A cleaned version of the "Export" file.
+- `*_Export*_merged.csv`: A merged file of the cleaned "Export" file and the other CSV.
+
+## Detailed Steps
+
+1. **Identification**: The script finds and reads the CSV file with "Export" in its name.
+2. **Cleaning**: Processes the identified "Export" file. (Make sure to integrate the relevant cleaning steps where indicated in the script.)
+3. **Merging**: Identifies another CSV file in the directory which contains the "Constituent ID" column. Merges the cleaned "Export" file with this second file.
+4. **Renaming**: Updates column names to be more user-friendly.
+5. **Saving**: Outputs the merged data with a "_merged" suffix added to the original "Export" file's name.
