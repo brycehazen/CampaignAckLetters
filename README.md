@@ -30,12 +30,12 @@ This script processes and merges specific CSV files within a directory. It's des
 ## File Descriptions
 
 **Input**:
-- `*_Export*.csv`: A CSV file with "Export" in its name which undergoes cleaning.
-- `*.csv`: Another CSV file containing the column "Constituent ID" used for merging.
+- `_Export.csv`: A CSV file with "Export" in its name which undergoes cleaning.
+- `.csv`: Another CSV file containing the column "Constituent ID" used for merging.
 
 **Output**:
-- `*_Export*_clean.csv`: A cleaned version of the "Export" file.
-- `*_Export*_merged.csv`: A merged file of the cleaned "Export" file and the other CSV.
+- `_Export_clean.csv`: A cleaned version of the "Export" file.
+- `_Export_merged.csv`: A merged file of the cleaned "Export" file and the other CSV.
 
 ## Detailed Steps
 
