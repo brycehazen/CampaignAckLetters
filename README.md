@@ -13,8 +13,8 @@ This script processes and merges specific CSV files within a directory. It's des
 - **Libraries**: pandas (Install via `pip install pandas`)
 - Run Mail module to genderate csv
 - Export from Export module the Query created from Mail module
--     This exported query needs to have Export in the name
--     Must clean up this Export (titles, Genders)
+    - This exported query needs to have Export in the name
+    - Must clean up this Export (titles, Genders)
 
 ## Usage
 
