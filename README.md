@@ -19,8 +19,8 @@ This script processes and merges specific CSV files within a directory. It's des
 ## Usage
 
 1. Ensure your working directory contains the CSV files for processing.
-2. One of the files should contain "Export" in its name.
-3. Another file in the directory should have the column "Constituent ID".
+2. One of the files should contain "Export" in its name. This export comes from the export module. You are exporting the query created by the Mail module. 
+3. Another file in the directory should have the column "Constituent ID". This is the mail module export. 
 4. Run the script using the command:
     ```bash
     python CampaignAckLetter.py
@@ -30,12 +30,12 @@ This script processes and merges specific CSV files within a directory. It's des
 ## File Descriptions
 
 **Input**:
-- `_Export.csv`: A CSV file with "Export" in its name which undergoes cleaning.
-- `.csv`: Another CSV file containing the column "Constituent ID" used for merging.
+- `_Export.csv`: A CSV file with "Export" in its name which undergoes cleaning. This comes from export module
+- `.csv`: Another CSV file containing the column "Constituent ID" used for merging. This is the mail module export. 
 
 **Output**:
 - `_Export_clean.csv`: A cleaned version of the "Export" file.
-- `_Export_merged.csv`: A merged file of the cleaned "Export" file and the other CSV.
+- `_Export_merged.csv`: A merged file of the cleaned "Export" file and the other CSV from mail.
 
 ## Detailed Steps
 
