@@ -12,9 +12,9 @@ This script processes and merges specific CSV files within a directory. It's des
 - **Python**: Version 3.x
 - **Libraries**: pandas (Install via `pip install pandas`)
 - Run Mail module to genderate csv
-- Export Query created from Mail module run
-- This exported query needs to have Export in the name
-- Must clean up Query Export (titles, Genders)
+- Export from Export module the Query created from Mail module
+-     This exported query needs to have Export in the name
+-     Must clean up this Export (titles, Genders)
 
 ## Usage
 
