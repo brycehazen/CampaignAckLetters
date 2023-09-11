@@ -46,7 +46,27 @@ commonTitles = ['Mrs.', 'Mr.', 'Ms.', 'Miss','Sr.']
 #     # drops duplicate ConsID
 #     df = df.drop_duplicates(subset=['Gf_CnBio_ID'])
 
-    
+# Define a function to remove data based on conditions
+def remove_data_based_on_conditions(row):
+    # Check if 'CnBio_First_Name' is equal to 'CnSpSpBio_First_Name' and remove data if True
+    if row['CnBio_First_Name'] == row['CnSpSpBio_First_Name']:
+        row['CnSpSpBio_Gender'] = ''
+        row['CnSpSpBio_Title_1'] = ''
+        row['CnSpSpBio_First_Name'] = ''
+        row['CnSpSpBio_Last_Name'] = ''
+
+    # Check if 'CnSpSpBio_Inactive' or 'CnSpSpBio_Deceased' is 'Yes' and remove data if True
+    if row['CnSpSpBio_Inactive'] == 'Yes' or row['CnSpSpBio_Deceased'] == 'Yes' or ['CnBio_Marital_status'] == 'Widowed' or ['CnBio_Marital_status'] == 'Divorced':
+        row['CnSpSpBio_Gender'] = ''
+        row['CnSpSpBio_Title_1'] = ''
+        row['CnSpSpBio_First_Name'] = ''
+        row['CnSpSpBio_Last_Name'] = ''
+
+    return row
+
+# Apply the function to your DataFrame
+df = df.apply(remove_data_based_on_conditions, axis=1)
+
 def swap_rows_based_on_gender(row):
     if row['Gf_CnBio_Gender'] == 'Female' and row['Gf_CnSpSpBio_Gender'] == 'Male':
         temp_gender = row['Gf_CnBio_Gender']
