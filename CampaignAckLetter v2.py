@@ -87,6 +87,32 @@ def swap_rows_based_on_gender(row):
 
 df = df.apply(swap_rows_based_on_gender, axis=1)
 
+# Removes row if they have a solicit code 
+def filter_and_remove_solicitations(df):
+        # List of columns to check
+        columns_to_check = [f'CnSolCd_1_{i:02d}_Solicit_Code' for i in range(1, 9)]
+
+        # List of strings to search for
+        strings_to_search = [
+            'no mail', 'No OCA Solicitations', 'Requested Removal', 
+            'Do not Solicit', 'Do not mail or email', 
+            'No OCA reminders', 'No campaign Reminders'
+        ]
+
+        # Create a boolean mask for rows to keep
+        mask = df[columns_to_check].isin(strings_to_search).any(axis=1)
+
+        # Save removed rows to CSV
+        removed_df = df[mask]
+        removed_df.to_csv("ConsIdRemoved_SolicitCodes.csv", index=False)
+
+        # Filter the original DataFrame to keep only the desired rows
+        df = df[~mask]
+
+        return df
+
+    # Example usage
+    df = filter_and_remove_solicitations(df)
 
 # This function update Ms and Miss to mrs if the last names are the same and marital status is married 2016-8067
 def update_titles_if_married(row):
