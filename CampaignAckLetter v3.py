@@ -48,19 +48,19 @@ commonTitles = ['Mrs.', 'Mr.', 'Ms.', 'Miss','Sr.']
 
 # Define a function to remove data based on conditions
 def remove_data_based_on_conditions(row):
-    # Check if 'CnBio_First_Name' is equal to 'CnSpSpBio_First_Name' and remove data if True
-    if row['CnBio_First_Name'] == row['CnSpSpBio_First_Name']:
-        row['CnSpSpBio_Gender'] = ''
-        row['CnSpSpBio_Title_1'] = ''
-        row['CnSpSpBio_First_Name'] = ''
-        row['CnSpSpBio_Last_Name'] = ''
+    # Check if 'Gf_CnBio_First_Name' is equal to 'Gf_CnSpSpBio_First_Name' and remove data if True
+    if row['Gf_CnBio_First_Name'] == row['Gf_CnSpSpBio_First_Name']:
+        row['Gf_CnSpSpBio_Gender'] = ''
+        row['Gf_CnSpSpBio_Title_1'] = ''
+        row['Gf_CnSpSpBio_First_Name'] = ''
+        row['Gf_CnSpSpBio_Last_Name'] = ''
 
-    # Check if 'CnSpSpBio_Inactive' or 'CnSpSpBio_Deceased' is 'Yes' and remove data if True
-    if row['CnSpSpBio_Inactive'] == 'Yes' or row['CnSpSpBio_Deceased'] == 'Yes' or ['CnBio_Marital_status'] == 'Widowed' or ['CnBio_Marital_status'] == 'Divorced':
-        row['CnSpSpBio_Gender'] = ''
-        row['CnSpSpBio_Title_1'] = ''
-        row['CnSpSpBio_First_Name'] = ''
-        row['CnSpSpBio_Last_Name'] = ''
+    # Check if 'Gf_CnSpSpBio_Inactive' or 'Gf_CnSpSpBio_Deceased' is 'Yes' and remove data if True
+    if row['Gf_CnSpSpBio_Inactive'] == 'Yes' or row['Gf_CnSpSpBio_Deceased'] == 'Yes' or ['Gf_CnBio_Marital_status'] == 'Widowed' or ['Gf_CnBio_Marital_status'] == 'Divorced':
+        row['Gf_CnSpSpBio_Gender'] = ''
+        row['Gf_CnSpSpBio_Title_1'] = ''
+        row['Gf_CnSpSpBio_First_Name'] = ''
+        row['Gf_CnSpSpBio_Last_Name'] = ''
 
     return row
 
