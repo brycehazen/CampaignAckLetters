@@ -88,31 +88,44 @@ def swap_rows_based_on_gender(row):
 df = df.apply(swap_rows_based_on_gender, axis=1)
 
 # Removes row if they have a solicit code 
-def filter_and_remove_solicitations(df):
+import os
+import pandas as pd
+
+def filter_and_remove_solicitations():
+    # Get all .csv and .CSV files in the current directory with 'Export' or 'export' in the name
+    csv_files = [f for f in os.listdir() if (f.lower().endswith('.csv') and ('Export' in f or 'export' in f))]
+
+    # If no matching files found, return a message
+    if not csv_files:
+        return "No matching .csv or .CSV files found."
+
+    for file in csv_files:
+        df = pd.read_csv(file)
+
         # List of columns to check
         columns_to_check = [f'CnSolCd_1_{i:02d}_Solicit_Code' for i in range(1, 9)]
 
-        # List of strings to search for
+        # List of strings to search for  'No OCA Solicitations','No OCA reminders', 'No campaign Reminders'
         strings_to_search = [
-            'no mail', 'No OCA Solicitations', 'Requested Removal', 
-            'Do not Solicit', 'Do not mail or email', 
-            'No OCA reminders', 'No campaign Reminders'
+            'no mail', 'Requested Removal', 
+            'Do not Solicit', 'Do not mail or email'
         ]
 
         # Create a boolean mask for rows to keep
         mask = df[columns_to_check].isin(strings_to_search).any(axis=1)
 
         # Save removed rows to CSV
+        removed_file_path = os.path.splitext(file)[0] + "_Removed_SolicitCodes.csv"
         removed_df = df[mask]
-        removed_df.to_csv("ConsIdRemoved_SolicitCodes.csv", index=False)
+        removed_df.to_csv(removed_file_path, index=False)
 
         # Filter the original DataFrame to keep only the desired rows
         df = df[~mask]
+        
+        # Overwrite the original file with the filtered data
+        df.to_csv(file, index=False)
 
-        return df
-
-    # Example usage
-    df = filter_and_remove_solicitations(df)
+    return "Processing complete for matching files."
 
 # This function update Ms and Miss to mrs if the last names are the same and marital status is married 2016-8067
 def update_titles_if_married(row):
