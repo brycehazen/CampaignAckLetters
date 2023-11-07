@@ -388,4 +388,4 @@ column_mapping = {
 merged_df = merged_df.rename(columns=column_mapping)
 # Save the merged dataframe with a '_merged' suffix
 merged_file = base + '_merged' + ext
-merged_df.to_csv(merged_file, index=False)
+merged_df.to_csv(merged_file, index=False, encoding='ISO-8859-1')
