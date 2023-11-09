@@ -10,7 +10,7 @@ if not export_files:
 export_file = export_files[0]
 
 # Read the 'Export' file and clean it
-    df = pd.read_csv(export_file, ecoding='ISO-8859-1', low_memory=False)
+    df = pd.read_csv(export_file,low_memory=False,ecoding='ISO-8859-1')
 
 
 # Any file ending in csv
