@@ -10,7 +10,7 @@ if not export_files:
 export_file = export_files[0]
 
 # Read the 'Export' file and clean it
-    df = pd.read_csv(export_file,low_memory=False, encoding='ISO-8859-1')
+df = pd.read_csv(export_file,low_memory=False,encoding='ISO-8859-1')
 
 
 # Any file ending in csv
@@ -339,17 +339,18 @@ df[['CnAdrSal_Addressee', 'CnAdrSal_Salutation']] = df.apply(concate_add_sal, ax
 # Save the cleaned file with '_clean' suffix
 base, ext = os.path.splitext(export_file)
 clean_file = base + '_clean' + ext
-df.to_csv(clean_file, index=False)
+df.to_csv(clean_file, index=False, encoding='ISO-8859-1')
 
 # Find the other file in the directory with 'Constituent ID' column
 other_files = [f for f in glob.glob('*.*') if f != export_file]
 for other_file in other_files:
     try:
-        other_df = pd.read_csv(other_file)
+        other_df = pd.read_csv(other_file, encoding='ISO-8859-1')
         if 'Constituent ID' in other_df.columns:
             break
     except:
         continue
+
 
 # Merge the cleaned dataframe with other_df
 merged_df = pd.merge(df, other_df, left_on='Gf_CnBio_ID', right_on='Constituent ID', how='left')
