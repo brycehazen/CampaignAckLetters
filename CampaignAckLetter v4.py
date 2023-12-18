@@ -31,7 +31,7 @@ specialTitle = ['Dr.', 'The Honorable', 'Col.', 'Cmsgt. Ret.', 'Rev. Mr.', 'Deac
                   'Maj.', 'Most Reverend', 'Bishop Emeritus','Family of']
 
 # List of common titles
-commonTitles = ['Mrs.', 'Mr.', 'Ms.', 'Miss','Sr.']              
+commonTitles = ['Mrs.', 'Mr.', 'Ms.', 'Miss','Sr.','Sra.', 'Señor']                
 
 # # Loop through all files in directory
 # for file in files:
@@ -88,9 +88,6 @@ def swap_rows_based_on_gender(row):
 df = df.apply(swap_rows_based_on_gender, axis=1)
 
 # Removes row if they have a solicit code 
-import os
-import pandas as pd
-
 def filter_and_remove_solicitations():
     # Get all .csv and .CSV files in the current directory with 'Export' or 'export' in the name
     csv_files = [f for f in os.listdir() if (f.lower().endswith('.csv') and ('Export' in f or 'export' in f))]
@@ -171,19 +168,33 @@ def update_marital_status_if_blank_married(row):
     return row
 df = df.apply(update_marital_status_if_blank_married, axis=1)
 
-# updates marital status to Widowed if Deceased or Inactive = yes, but avoids changing divorced. it will also change instnaces where person is married to themselves (wrong status but avoids bad add/sal) 
 def update_marital_status_Widowed(row):
-    if (((row['Gf_CnSpSpBio_Deceased'] == 'Yes') or (row['Gf_CnSpSpBio_Inactive'] == 'Yes')) or ((row['Gf_CnBio_Marital_status'] == 'Divorced')) or ((row['Gf_CnSpSpBio_First_Name'] == row['Gf_CnBio_First_Name'])) or (((row['Gf_CnBio_Marital_status'] == 'Single') 
-    or (pd.isnull(row['Gf_CnBio_Marital_status']))) or (pd.isnull(row['Gf_CnSpSpBio_First_Name']))) ):
-        row['Gf_CnBio_Marital_status'] = 'Widowed'
+    # Check if spouse-related fields are all blank
+    spouse_info_blank = all(pd.isnull(row[field] ) or row[field].strip() == '' for field in ['CnSpSpBio_Title_1', 'CnSpSpBio_First_Name', 'CnSpSpBio_Last_Name'])
+
+    # Update marital status to 'Widowed' based on specified conditions
+    if ((row['CnSpSpBio_Deceased'] == 'Yes') or 
+        (row['CnSpSpBio_Inactive'] == 'Yes') or 
+        (row['CnBio_Marital_status'] == 'Divorced') or 
+        ((row['CnBio_Marital_status'] in ['Single', 'Married', 'Unknown', None] or pd.isnull(row['CnBio_Marital_status'])) and spouse_info_blank)):
+        row['CnBio_Marital_status'] = 'Widowed'
     return row
+
+# Apply the function to the DataFrame
 df = df.apply(update_marital_status_Widowed, axis=1)
 
 # If last names are different
 def Different_Last_Name_1(row):
-        if ( (row['Gf_CnBio_Last_Name'] != row['Gf_CnSpSpBio_Last_Name']) and (row['Gf_CnBio_Marital_status'] == 'Married') and (pd.notnull(row['Gf_CnSpSpBio_First_Name']) or pd.notnull(row['Gf_CnSpSpBio_Last_Name'])) ):
-            row['Gf_CnBio_Marital_status'] = 'DifferentLastName_1'
-        return row
+    # Check if last names are different, marital status is 'Married', 
+    # and either first name or last name of the spouse is not null/blank
+    if (row['CnBio_Last_Name'] != row['CnSpSpBio_Last_Name']) and \
+    (row['CnBio_Marital_status'] == 'Married') and \
+    ((pd.notnull(row['CnSpSpBio_First_Name']) and row['CnSpSpBio_First_Name'].strip()) or \
+    (pd.notnull(row['CnSpSpBio_Last_Name']) and row['CnSpSpBio_Last_Name'].strip())):
+        row['CnBio_Marital_status'] = 'DifferentLastName_1'
+    return row
+
+# Apply the function to the DataFrame
 df = df.apply(Different_Last_Name_1, axis=1)
 
 # If last names are different but titles are the same and neither are special
